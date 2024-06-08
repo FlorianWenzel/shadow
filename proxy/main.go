@@ -68,7 +68,11 @@ func initDB() {
 }
 
 func logRequest(r *http.Request, duration int32) {
-	ip := strings.Split(r.RemoteAddr, ":")[0]
+	ip := r.Header.Get("X-Forwarded-For")
+	if ip == "" {
+		ip = strings.Split(r.RemoteAddr, ":")[0]
+	}
+
 	request := Request{Host: r.Host, Path: r.URL.Path, TimeTaken: duration, Ip: ip}
 	db.Create(&request)
 
