@@ -1,0 +1,7 @@
+@layer reset, primevue;
+
+@layer reset {
+  button,
+  input {
+  }
+}

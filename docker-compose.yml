@@ -1,0 +1,45 @@
+services:
+  proxy:
+    build:
+      context: ./proxy
+    volumes:
+      - ./proxy:/app
+    ports:
+      - "3001:3001"
+    environment:
+      - PROXY_TARGET=http://10.0.0.67:2368
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_NAME=postgres
+      - DB_PASSWORD=postgres
+    command: fresh
+  backend:
+    build:
+      context: ./backend
+    volumes:
+      - ./backend:/app
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_NAME=postgres
+      - DB_PASSWORD=postgres
+    command: fresh
+  app:
+    build:
+      context: ./app
+    volumes:
+      - ./app/src:/app/src
+    ports:
+      - "8080:8080"
+  db:
+    image: postgres:16.3-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
