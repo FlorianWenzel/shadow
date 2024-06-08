@@ -1,4 +1,4 @@
-name: Build and Push Backend Image
+name: Build and Push Proxy Image
 on:
   push:
     branches:
@@ -19,8 +19,8 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: backend
+          context: proxy
           push: true
-          tags: wenzelflorian/shadow-backend:latest
+          tags: wenzelflorian/shadow-proxy:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
