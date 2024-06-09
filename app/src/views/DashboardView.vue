@@ -5,6 +5,7 @@
       :key="card.id"
       :title="card.title"
       :endpoint="card.endpoint"
+      :type="card.type"
     ></DashboardCard>
   </div>
 </template>
@@ -15,8 +16,8 @@ import { ref } from 'vue'
 
 const cards = ref([
   { id: 1, title: 'Card 1', endpoint: '/api/requests-per-page' },
-  { id: 1, title: 'Card 2', endpoint: '/api/requests-per-ip' },
-  { id: 1, title: 'Card 2', endpoint: '/api/average-latency-per-route' }
+  { id: 2, title: 'Card 2', endpoint: '/api/requests-per-country', type: 'choropleth' },
+  { id: 3, title: 'Card 2', endpoint: '/api/requests-per-ip', type: 'bar' }
 ])
 </script>
 <style>

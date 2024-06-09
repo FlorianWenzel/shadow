@@ -5,7 +5,7 @@
     </template>
     <template #content>
       <div class="flex justify-content-center align-items-center">
-        <AppChart v-if="data" :data="data"></AppChart>
+        <AppChart v-if="data" :data="data" :type="type"></AppChart>
       </div>
     </template>
   </Card>
@@ -18,6 +18,10 @@ const props = defineProps({
   endpoint: {
     type: String,
     required: true
+  },
+  type: {
+    type: String,
+    default: 'bar'
   }
 })
 const data = ref(null)
@@ -27,6 +31,9 @@ onMounted(() => {
     .then((response) => response.json())
     .then((response) => {
       data.value = response
+    })
+    .catch((error) => {
+      console.error(error)
     })
 })
 </script>

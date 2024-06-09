@@ -101,6 +101,20 @@ func main() {
 		w.Write(jsonData)
 	})
 
+	http.HandleFunc("/api/requests-per-country", func(w http.ResponseWriter, r *http.Request) {
+		var results []Count
+		result := db.Raw("SELECT country as label, COUNT(*) as count FROM requests GROUP BY country").Scan(&results)
+		if result.Error != nil {
+			log.Println(result.Error)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
+		}
+
+		jsonData := formatCount("Requests per Country", results)
+		w.Header().Set("Content-Type", "application/json")
+		w.Write(jsonData)
+	})
+
 	log.Fatal(http.ListenAndServe(":3000", nil))
 
 }
