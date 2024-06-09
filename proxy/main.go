@@ -77,8 +77,6 @@ func readIpToLocationCsv() {
 	if err != nil {
 		panic(err)
 	}
-	db.Exec("TRUNCATE TABLE ip_to_locations;")
-
 	reader := csv.NewReader(strings.NewReader(string(dat)))
 	totalLines := len(strings.Split(string(dat), "\n"))
 	processedLines := 0
